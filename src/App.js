@@ -1,12 +1,12 @@
 import React from 'react';
 import MemeGen from './MemeGen';
-import logo from './logo.svg';
+import logo from './img/logo.svg';
 
 import './App.css';
 
 const meme = {
-  header: 'Hello World!',
-  footer: 'My first meme is awesome :)',
+  header: {text: 'Hello World!', style: {color: 'white', fontSize: 40, fontFamily: 'Ubuntu'}},
+  footer: {text: 'My first meme is awesome :)', style: {color: 'white', fontSize: 40, fontFamily: 'Ubuntu'}},
   imageUrl: 'http://i.imgur.com/MbLijRZ.jpg',
 };
 

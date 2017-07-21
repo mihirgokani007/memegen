@@ -1,6 +1,7 @@
 import React from 'react';
-import { Stage, Layer, Group, Image, Text } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 
+import MemeText from './MemeText';
 import StaticImage from './utils/StaticImage';
 
 const MemePreview = ({ width, height, meme }) => {
@@ -10,7 +11,9 @@ const MemePreview = ({ width, height, meme }) => {
   return (
     <Stage width={ width } height={ height }>
       <Layer>
-        <StaticImage src={ imageUrl } width={ width } height={ height } scale={ 'even' } />
+        <MemeText text={ header.text } style={ header.style } />
+        <StaticImage src={ imageUrl } width={ width } height={ height } sizing="original" />
+        <MemeText text={ footer.text } style={ footer.style } />
       </Layer>
     </Stage>
   );

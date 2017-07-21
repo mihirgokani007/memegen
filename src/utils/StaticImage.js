@@ -1,14 +1,15 @@
 import React from 'react';
 import { Image } from 'react-konva';
 
-const DEFAULT_IMAGE = '';
+import imageUnavailable from '../img/image-unavailable.svg';
 
 class StaticImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       image: null,
-      scale: 1
+      scaleX: 1,
+      scaleY: 1
     };
   }
 
@@ -19,12 +20,34 @@ class StaticImage extends React.Component {
   setImage(src) {
     const image = new window.Image();
     image.onload = () => {
-      const scaleX = this.props.width / image.width;
-      const scaleY = this.props.height / image.height;
-      const scale = Math.min(scaleX, scaleY);
+      let scaleX = 1, scaleY = 1;
+      switch (this.props.sizing) {
+        case 'contain':
+        case 'letterbox':
+          scaleX = scaleY = Math.min(
+            this.props.width / image.width, 
+            this.props.height / image.height
+          );
+          break;
+        case 'cover':
+          scaleX = scaleY = Math.max(
+            this.props.width / image.width, 
+            this.props.height / image.height
+          );
+          break;
+        case 'fit':
+        case 'stretch':
+          scaleX = this.props.width / image.width;
+          scaleY = this.props.height / image.height;
+          break;
+        default:
+        case 'original':
+          break;
+      }
       this.setState({
         image,
-        scale
+        scaleX,
+        scaleY
       });
     };
     image.onerror = this.resetImage.bind(this);
@@ -32,12 +55,12 @@ class StaticImage extends React.Component {
   }
 
   resetImage() {
-    this.setImage(DEFAULT_IMAGE);
+    this.setImage(imageUnavailable);
   }
 
   render() {
     return (
-      <Image image={ this.state.image } scaleX={ this.state.scale } scaleY={ this.state.scale } />
+      <Image image={ this.state.image } scaleX={ this.state.scaleX } scaleY={ this.state.scaleY } />
     );
   }
 }

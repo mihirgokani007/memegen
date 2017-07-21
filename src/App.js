@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MemeGen from './MemeGen';
 import logo from './logo.svg';
+
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+const meme = {
+  header: 'Hello World!',
+  footer: 'My first meme is awesome :)',
+  imageUrl: 'http://i.imgur.com/MbLijRZ.jpg',
+};
+
+const App = () => {
+  return (
+    <div>
+      <MemeGen meme={ meme } />
+    </div>
+  );
 }
 
 export default App;
